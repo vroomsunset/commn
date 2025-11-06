@@ -1,13 +1,37 @@
 import { formatDistanceToNow } from 'date-fns'
+import { differenceInSeconds, differenceInMinutes, differenceInHours, differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
 import { useState, useEffect } from 'react'
 import api from '../api/axios.js'
 
 export default function({ post }) {
-  const time = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })
+  const time = timeagoshort(new Date(post.createdAt), { addSuffix: true })
 
   const [user, setUser] = useState(null)
   const [like, setLike] = useState(post.likedBy.length)
   const [liked, setLiked] = useState(false)
+
+  //format time
+  function timeagoshort(date){
+    const now = new Date();
+
+    const seconds = differenceInSeconds(now, date)
+    if(seconds < 60) return `${seconds}s`
+
+    const minutes = differenceInMinutes(now, date)
+    if(minutes < 60) return `${minutes}m`;
+
+    const hours = differenceInHours(now, date)
+    if(hours < 24) return `${hours}h`;
+
+    const days = differenceInDays(now, date)
+    if(days < 30) return `${days}d`;
+
+    const months = differenceInMonths(now, date)
+    if(months < 12) return `${months}m`;
+
+    const years = differenceInYears(now, date)
+    if(years < 60) return `${years}y`;
+  }
 
   // fetch current user
   useEffect(() => {
@@ -41,8 +65,8 @@ export default function({ post }) {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>
-          <p><strong>{post.user.username}</strong></p>
+        <div style={{display:'flex'}}>
+          <p><strong>{post.user.username}</strong><b>-</b></p>
           <p>{time}</p>
         </div>
         <div>
