@@ -6,6 +6,7 @@ import auth from '../middleware/auth.js';
 const router = express.Router();
 
 router.post('/create', auth, async(req, res) => {
+	console.log(req);
 	const { content } = req.body;
 	try{
 		const post = await prisma.post.create({
@@ -23,6 +24,7 @@ router.post('/create', auth, async(req, res) => {
 
 
 router.get('/explore', auth, async(req, res) => {
+	console.log(req);
 	const post = await prisma.post.findMany({ take : 20, 
 		include : {
 			user : {

@@ -10,6 +10,7 @@ const router = express.Router();
 router.use(express.json());
 
 router.post('/register', async(req, res) => {
+	console.log(req);
 	const { username, email, password } = req.body;
 	console.log('register');
 	if(!username || !email || !password){
@@ -46,6 +47,7 @@ router.post('/register', async(req, res) => {
 
 
 router.post('/login', async(req, res) => {
+	console.log(req);
 	const { username, password } = req.body;
 
 	try{
@@ -77,6 +79,7 @@ router.post('/login', async(req, res) => {
 //when pages reload, state reset, so an endpoint
 
 router.get('/me', auth, async(req, res) => {
+	console.log(req);
 	const user = await prisma.user.findUnique({where : { id : req.user.id }});
 	res.json({user});
 })

@@ -9,6 +9,7 @@ export default function Feed(){
 	useEffect(()=> {
 		async function loadpost(){
 			const res = await api.get('/post/explore');
+			console.log(res);
 			setPost(res.data);
 		}
 		loadpost();

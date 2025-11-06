@@ -6,6 +6,7 @@ import auth from '../middleware/auth.js';
 const router = express.Router();
 
 router.post('/:postid', auth, async(req, res) => {
+	console.log(req);
 	const userid = req.user.id;
 	const postid = Number(req.params.postid);
 
@@ -25,6 +26,7 @@ router.post('/:postid', auth, async(req, res) => {
 })
 
 router.delete('/:postid', auth, async(req, res) => {
+	console.log(req);
 	const userid = req.user.id;
 	const postid = Number(req.params.postid);
 
@@ -44,6 +46,7 @@ router.delete('/:postid', auth, async(req, res) => {
 })
 
 router.get('/:postid/likes', auth, async(req, res) => {
+	console.log(req);
 	const postid = Number(req.params.id);
 
 	const post = await prisma.post.findUnique({

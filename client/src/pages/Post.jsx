@@ -8,6 +8,7 @@ export default function Post(){
 		if(!content.trim()) return;
 
 		const res = await api.post('/post/create', {content});
+		console.log(res);
 		setContent('');
 	}
 

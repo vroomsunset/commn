@@ -6,6 +6,7 @@ import auth from '../middleware/auth.js';
 const router = express.Router();
 
 router.post('/add', auth, async(req, res) => {
+	console.log(req);
 	const { postId, content } = req.body;
 
 	try{
@@ -24,6 +25,7 @@ router.post('/add', auth, async(req, res) => {
 });
 
 router.get('/:postId', auth, async(req, res) => {
+	console.log(req);
 	// const { postId } = req.params;
 	const postId = Number(req.params.postId);
 

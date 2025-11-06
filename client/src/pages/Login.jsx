@@ -14,6 +14,7 @@ export default function Login(){
 		e.preventDefault();
 
 		const res = await api.post('/auth/login', { username, password });
+		console.log(res);
 
 		if( res.data.msg === 'logged in' ){
 			// setUser(res.data.user);

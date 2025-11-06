@@ -14,6 +14,7 @@ export default function Signup(){
 		e.preventDefault();
 
 		const res = await api.post('/auth/register', { username, email, password });
+		console.log(res);
 
 		if( res.data.msg === 'registered' ){
 			// setUser(res.data.user);

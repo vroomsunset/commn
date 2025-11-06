@@ -6,6 +6,7 @@ import auth from '../middleware/auth.js';
 const router = express.Router();
 
 router.post('/:id', auth, async(req, res) => {
+	console.log(req);
 	const followerid = req.user.id;
 	const targetuserid = Number(req.params.id);
 
@@ -26,6 +27,7 @@ router.post('/:id', auth, async(req, res) => {
 })
 
 router.delete('/:id', auth, async(req, res) => {
+	console.log(req);
 	const followerid = req.user.id;
 	const targetuserid = Number(req.params.id);
 
@@ -44,6 +46,7 @@ router.delete('/:id', auth, async(req, res) => {
 })
 
 router.get('/:id/followers', auth, async(req, res) => {
+	console.log(req);
 	const userid = Number(req.params.id);
 
 	const user = await prisma.user.findUnique({
