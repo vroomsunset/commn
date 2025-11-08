@@ -80,7 +80,14 @@ router.post('/login', async(req, res) => {
 
 router.get('/me', auth, async(req, res) => {
 	console.log(req);
-	const user = await prisma.user.findUnique({where : { id : req.user.id }});
+	const user = await prisma.user.findUnique({
+		where : { id : req.user.id },
+		select: {
+			id : true,
+			likeposts : {
+				select : { id : true },
+			}
+		}});
 	res.json({user});
 })
 

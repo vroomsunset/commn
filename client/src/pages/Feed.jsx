@@ -1,4 +1,6 @@
+
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/axios.js';
 import Post from './Post.jsx';
 import Postcard from '../components/Postcard.jsx';
@@ -11,9 +13,15 @@ export default function Feed(){
 			const res = await api.get('/post/explore');
 			console.log(res);
 			setPost(res.data);
+			if(res.data.msg === "sign in first"){
+				navigate('/login');
+			}
 		}
 		loadpost();
 	}, []); 
+
+	const navigate = useNavigate();
+
 
 	function handlenewpost(newpost){
 		setPost(prev => [newpost, ...prev]);
