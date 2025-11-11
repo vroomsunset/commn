@@ -76,6 +76,16 @@ router.post('/login', async(req, res) => {
 	}
 })
 
+//log out
+router.post('/logout', auth, async(req, res) => {
+	res.clearCookie('token', {
+		secure : true,
+		sameSite : "strict",
+		path: '/'
+	});
+	res.json({msg : 'logged out'})
+})
+
 //when pages reload, state reset, so an endpoint
 
 router.get('/me', auth, async(req, res) => {

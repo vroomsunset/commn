@@ -22,19 +22,39 @@ export default function Feed(){
 
 	const navigate = useNavigate();
 
+	async function handleLogout(){
+		const res = await api.post('/auth/logout');
+		if(res.data.msg === 'logged out'){
+			navigate('/login');
+		}
+
+	}
 
 	function handlenewpost(newpost){
-		setPost(prev => [newpost, ...prev]);
+		setPost(prev => [ newpost, ...prev ]);
 	}
 	console.log(post);
 
 	return (
-			<div>
-				<Post onCreate={handlenewpost}></Post>
-				{post.map(p => (
-					// key so that react dont confuse and track each list item during re-render
-					<Postcard key={p.id} post={p}/>
-				))}
+			<div style={{display : "flex", justifyContent: 'center', alignItems : 'center'}}>
+				<div>
+					profile
+					<button onClick={handleLogout}>
+						logout
+					</button>
+				</div>
+				<div style={{backgroundColor : 'black'}}>
+					<Post onCreate={handlenewpost}></Post>
+					{post.map(p => (
+							<Postcard style={{padding: "12px",
+						      marginBottom: "12px",
+						      borderRadius: "8px"
+						  }}key={p.id} post={p}/>
+					))}
+					</div>
+				<div>
+					suggestions
+				</div>
 			</div>
 		);
 }

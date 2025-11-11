@@ -1,4 +1,7 @@
-*{
+body{
   background-color: black;
   color: white;
+  font-family: "Lilita One", sans-serif;
+  font-weight: 20;
+  font-style: normal;
 }

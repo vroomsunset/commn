@@ -1,0 +1,15 @@
+*{
+	margin : 0;
+	padding : 0
+}
+
+textarea{
+	width : 600px;
+	height: 40px;
+	padding: 8px;
+	border: 1px solid black;
+	border-radius: 12px;
+	font-size: 14px;
+	resize: none;
+	margin: 10px;
+}

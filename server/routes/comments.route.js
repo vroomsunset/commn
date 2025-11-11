@@ -8,8 +8,18 @@ const router = express.Router();
 router.post('/add', auth, async(req, res) => {
 	console.log(req);
 	const { postId, content } = req.body;
+	if(typeof postId === 'string') postId = Number(postId);
 
 	try{
+		const post = await prisma.post.findUnique({
+			where : {
+				id : postId
+			},
+			select : {
+				id : true
+			}
+		});
+		if(!post) return res.json({msg : "post does not exist"})
 		const comment = await prisma.comment.create({
 			data: {
 				content,

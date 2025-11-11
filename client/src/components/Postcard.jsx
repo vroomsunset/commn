@@ -68,20 +68,18 @@ export default function PostCard({ post }) {
       console.log('not authenticated');
       return;
     }
-    if (inFlight) return;
-    setInFlight(true);
+    // if (inFlight) return;
+    // setInFlight(true);
 
     try {
       if (liked) {
         const res = await api.delete(`/like/${post.id}`);
         post.likedBy.length -= 1;
         setLiked(false);
-        if (!res || (res.status && res.status >= 400)) throw new Error('unlike failed');
       } else {
         const res = await api.post(`/like/${post.id}`);
         post.likedBy.length += 1;
         setLiked(true);
-        if (!res || (res.status && res.status >= 400)) throw new Error('like failed');
       }
       // success: optionally reconcile server count here if returned
     } catch (err) {
@@ -90,10 +88,10 @@ export default function PostCard({ post }) {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{padding : "15px", borderRadius : "0.8rem", backgroundColor : '#5c5c5c', margin : '0.3rem'}}>
+      <div style={{ display: 'flex', justifyContent: 'space-between'}}>
         <div style={{ display: 'flex', gap: 8 }}>
-          <p><strong>{post.user?.username}</strong><b>-</b></p>
+          <p><strong>{post.user?.username} </strong><b>·</b></p>
           <p>{time}</p>
         </div>
         <div>
