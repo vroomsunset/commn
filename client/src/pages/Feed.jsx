@@ -1,12 +1,14 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import api from '../api/axios.js';
 import Post from './Post.jsx';
 import Postcard from '../components/Postcard.jsx';
 
 export default function Feed(){
 	const [ post, setPost ] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(()=> {
 		async function loadpost(){
@@ -20,7 +22,6 @@ export default function Feed(){
 		loadpost();
 	}, []); 
 
-	const navigate = useNavigate();
 
 	async function handleLogout(){
 		const res = await api.post('/auth/logout');
@@ -43,13 +44,15 @@ export default function Feed(){
 						logout
 					</button>
 				</div>
-				<div style={{backgroundColor : 'black'}}>
+				<div style={{backgroundColor : 'black', width : "33%", cursor : 'pointer'}}>
 					<Post onCreate={handlenewpost}></Post>
 					{post.map(p => (
+						<Link to={`/comment/${p.id}`} key={p.id}>
 							<Postcard style={{padding: "12px",
 						      marginBottom: "12px",
 						      borderRadius: "8px"
-						  }}key={p.id} post={p}/>
+						  }} post={p}/>
+						</Link>
 					))}
 					</div>
 				<div>

@@ -81,18 +81,18 @@ export default function PostCard({ post }) {
         post.likedBy.length += 1;
         setLiked(true);
       }
-      // success: optionally reconcile server count here if returned
     } catch (err) {
       cosole.error(err);
     }
   }
 
   return (
-    <div style={{padding : "15px", borderRadius : "0.8rem", backgroundColor : '#5c5c5c', margin : '0.3rem'}}>
-      <div style={{ display: 'flex', justifyContent: 'space-between'}}>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <p><strong>{post.user?.username} </strong><b>·</b></p>
-          <p>{time}</p>
+    <div style={{padding : "0.15rem 1rem", borderRadius : "0.8rem", backgroundColor : "rgb(52, 52, 52)", margin : '0.3rem'}}>
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems : 'center'}}>
+        <div style={{display: 'inline-flex', alignItems: 'baseline', gap : 6}}>
+          <h4><strong style={{marginRight : "0.4rem", alignItems : 'center', textAlign : 'center'}}>{post.user?.username}</strong><b>·</b></h4>
+          <h4 style={{opacity : '0.5', alignItems : 'center', textAlign : 'center'}}>{time}</h4>
         </div>
         <div>
           <button>follow</button>
@@ -103,9 +103,9 @@ export default function PostCard({ post }) {
 
       <div style={{ display: 'flex', gap: 8 }}>
         <button onClick={togglelike} disabled={inFlight} aria-pressed={liked}>
-          {liked ? 'unlike' : 'like'} {post.likedBy.length}
+          {liked ? 'u' : 'l' } {post.likedBy?.length}
         </button>
-        <button>comment</button>
+        <button> c {post._count?.comments}</button>
         <button>save</button>
       </div>
     </div>

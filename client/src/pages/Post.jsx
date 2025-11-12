@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import api from '../api/axios.js';
 
@@ -15,11 +16,11 @@ export default function Post(){
 	return(
 		<form onSubmit={handleSubmit}>
 			<textarea
-				placeholder='whats happening'
+				placeholder='Comment, Communicate and Connect!'
 				value={content}
 				onChange={e => setContent(e.target.value)}
 			/>
-			<button type='submit'>post</button>
+				<button type='submit'>post</button>
 		</form>
 	)
 }
