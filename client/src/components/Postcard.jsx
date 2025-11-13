@@ -31,6 +31,7 @@ export default function PostCard({ post }) {
   // state
   const [user, setUser] = useState(null);
   const [liked, setLiked] = useState(false);
+  const [ follow, setFollow ] = useState(false);
   const [inFlight, setInFlight] = useState(false);
 
   // fetch current user once
@@ -55,14 +56,25 @@ export default function PostCard({ post }) {
     //safely fetches user.likeposts, if returns undefined, if the before returns undefined, it init an array
   }, [user]);
 
+  const followedset = useMemo(() => {
+    return new Set((user?.following ?? []).map(p => p.id));
+  }, [user]);
+
   // set initial liked boolean when user or post changes
   useEffect(() => {
     setLiked(Boolean(likedSet.has(post.id)));
     // also ensure likeCount sync with post on mount
   }, [likedSet, post]);
 
+  //set initial follow state
+  useEffect(() => {
+    setFollow(Boolean(followedset.has(post.user.id)))
+  }, [followedset, post])
+
   // toggle like with optimistic update and rollback
-  async function togglelike() {
+  async function togglelike(e) {
+    e.stopPropagation();
+    e.preventDefault();
     if (!user) {
       // prompt login or return
       console.log('not authenticated');
@@ -86,16 +98,40 @@ export default function PostCard({ post }) {
     }
   }
 
+  async function handleFollow(e, post){
+    e.stopPropagation();
+    e.preventDefault();
+    const id = Number(post.authorId);
+    console.log(id);
+    try{
+      if(follow){
+        const res = await api.delete(`/follow/${id}`);
+        if(res.data.msg === 'unfollowed'){
+          console.log('unfollowed');
+          setFollow(false);
+        }
+      }else{
+        const res = await api.post(`/follow/${id}`);
+        if(res.data.msg === 'followed'){
+          console.log('followed');
+          setFollow(true);
+        }
+      }
+    }catch(e){
+      console.error(e);
+    }
+  }
+
   return (
     <div style={{padding : "0.15rem 1rem", borderRadius : "0.8rem", backgroundColor : "rgb(52, 52, 52)", margin : '0.3rem'}}>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems : 'center'}}>
         <div style={{display: 'inline-flex', alignItems: 'baseline', gap : 6}}>
-          <h4><strong style={{marginRight : "0.4rem", alignItems : 'center', textAlign : 'center'}}>{post.user?.username}</strong><b>·</b></h4>
+          <h4><strong style={{marginRight : "0.4rem", alignItems : 'center', textAlign : 'center', opacity : '0.7'}}>{post.user?.username}</strong><b>·</b></h4>
           <h4 style={{opacity : '0.5', alignItems : 'center', textAlign : 'center'}}>{time}</h4>
         </div>
         <div>
-          <button>follow</button>
+          <button onClick={(e) => handleFollow(e, post)}>{follow ? 'u' : 'f'}</button>
         </div>
       </div>
 

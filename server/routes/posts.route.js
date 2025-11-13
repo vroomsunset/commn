@@ -26,9 +26,7 @@ router.get('/explore', auth, async(req, res) => {
 	console.log(req);
 	const post = await prisma.post.findMany({ take : 20, 
 		include : {
-			user : {
-				select : { username : true }
-			},
+			user : true,
 			_count : { select : { comments : true}},
 			likedBy : { select : { id : true }}
 		}
