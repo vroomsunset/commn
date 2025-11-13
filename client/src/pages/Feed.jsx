@@ -37,14 +37,36 @@ export default function Feed(){
 	console.log(post);
 
 	return (
-			<div style={{display : "flex", justifyContent: 'center', alignItems : 'center'}}>
-				<div>
-					profile
-					<button onClick={handleLogout}>
-						logout
-					</button>
+			<div style={{display : "flex", justifyContent: 'center', alignItems : 'center', height : '100vh'}}>
+				<div style={{oveflow : 'hidden', marginRight : '0.1rem', backgroundColor : 'inherit', height : "100vh", padding : '0.1rem'}}>
+					<div style={{margin : '2rem 0'}}>
+						<h2 style={{display: 'flex', justifyContent : 'center', alignItems : 'center'}}>commn.com</h2>
+					</div>
+					<div style={{flexDirection : 'column', display : 'flex', justifyContent : 'center', alignItems: 'center'}}>
+						<button className="nav">
+							<h3>Home</h3>
+						</button>
+						<button className="nav">
+							<h3>Explore</h3>
+						</button>
+						<button className="nav">
+							<h3>Notifications</h3>
+						</button>
+						<button className="nav">
+							<h3>Messages</h3>
+						</button>
+						<button className="nav">
+							<h3>Profile</h3>
+						</button>
+						<button className="nav">
+							<h3>Post</h3>
+						</button>
+						<button className="nav" onClick={handleLogout}>
+							<h3>Logout</h3>
+						</button>
+					</div>
 				</div>
-				<div style={{backgroundColor : 'black', width : "33%", cursor : 'pointer'}}>
+				<div className="posts"style={{backgroundColor : 'black', width : "33%", cursor : 'pointer', overflowY : 'auto', height : '100vh', overflowX : 'auto'}}>
 					<Post onCreate={handlenewpost}></Post>
 					{post.map(p => (
 						<Link to={`/comment/${p.id}`} key={p.id}>
@@ -55,8 +77,13 @@ export default function Feed(){
 						</Link>
 					))}
 					</div>
-				<div>
-					suggestions
+				<div style={{overflow : 'hidden', marginLeft : '0.5rem', backgroundColor : 'inherit', height : '100vh', padding : '2rem'}}>
+					<div className="trending">
+						Trending
+					</div>
+					<div className="suggestion">
+						Suggestions
+					</div>
 				</div>
 			</div>
 		);
