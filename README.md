@@ -1,17 +1,17 @@
 
-# commn — a lightweight text-based homegrown social media
+# commn — a minimalist, lightweight text-based homegrown social media
 
 > simple, self-hostable text-first social network built with node, express, react (vite) and postgres.
 
 ## overview
 
-commn aims to provide a fast, privacy-conscious platform for short text posts, threaded conversations, and simple following mechanics. it targets users and communities that prefer a homegrown alternative to large social networks.
+commn aims to provide a fast, minimalist, bloatfree platform for short text posts, threaded conversations, and simple following mechanics. it targets users and communities that prefer a homegrown alternative to large social networks.
 
 core goals:
 
 * minimal, text-first ux
 * self-hostable and easy to deploy
-* standard web stack: node/express api, react frontend (vite), postgres data store
+* standard web stack: node/express api, react frontend (vite), postgres
 * extendable architecture for features like mentions, replies, and basic moderation
 
 ## features
@@ -21,7 +21,7 @@ core goals:
 * threaded replies and simple timelines (home / profile / public)
 * follow/unfollow users
 * basic notification feed (mentions, replies)
-* search users and posts (postgres full-text)
+* search users and posts (postgres)
 
 ## tech stack
 
@@ -29,40 +29,32 @@ core goals:
 * frontend: react, vite
 * database: postgresql
 * auth: jwt (bearer tokens)
-* connection: node-postgres (pg) or any orm (optional)
+* connection: prisma
 
 ## project structure (example)
 
 ```
 / (repo root)
-├─ /api                 # express app, routes, controllers, middlewares
-├─ /web                 # react vite app
-├─ /migrations          # sql migration scripts or orm migrations
-├─ /scripts             # dev scripts (migrate, seed, build)
-├─ .env.example         # example environment variables
+├─ /client        # client code ( frontend )
+├─ /server        # express app, routes, controllers, middlewares
 └─ README.md
 ```
 
 ## prerequisites
 
-* node 18+ (or recommended lts)
-* npm or pnpm or yarn
-* postgres 12+
-* optional: pm2 or systemd for production process management
+* node
+* npm
+* postgres
 
 ## environment variables
 
-create a `.env` file (copy `.env.example`) and set at least:
+create a `.env` file and set at least:
 
 ```
 # backend
 PORT=4000
-DATABASE_URL=postgres://user:password@localhost:5432/commn_db
-JWT_SECRET=your_long_random_secret
-NODE_ENV=development
-
-# frontend
-VITE_API_URL=http://localhost:4000
+DATABASE_URL=postgres://user:password@localhost:5432/commn
+JWT_SECRET=secretstring
 ```
 
 ## quick start (development)
@@ -70,36 +62,35 @@ VITE_API_URL=http://localhost:4000
 1. clone repo
 
 ```bash
-git clone <repo-url> commn && cd commn
+git clone https://github.com/vroomsunset/commn && cd commn
 ```
 
 2. install dependencies (backend + frontend)
 
 ```bash
 # from repo root
-npm install
-cd web && npm install
-cd ../api && npm install
+cd client && npm install
+cd..
+cd server && npm install
 ```
 
 3. prepare database
 
 ```bash
 # create database
-createdb commn_db
-# run migrations (project provides migrations scripts)
-npm run migrate
-# seed (optional)
-npm run seed
+createdb commn
+
+npx prisma generate
+npm prisma migrate dev
 ```
 
 4. run backend and frontend
 
 ```bash
-# run api (from /api)
+# run api (from client)
 npm run dev
-# run frontend (from /web)
-npm run dev
+# run frontend (from /server)
+node index.js
 ```
 
 open `http://localhost:5173` (vite default) and backend at `http://localhost:4000` (example)
@@ -155,5 +146,3 @@ open `http://localhost:5173` (vite default) and backend at `http://localhost:400
 choose a license (mit recommended for easy adoption). include `LICENSE` file.
 
 ---
-
-if you want, i can generate a `.env.example`, common migration sql, or a simple deploy script next.
