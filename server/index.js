@@ -12,7 +12,6 @@ import bcrypt from 'bcrypt';
 import cors from 'cors';
 
 dotenv.config();
-const port = 8080;
 const app = express();
 app.use(express.json());
 app.use(cookieparser());
@@ -32,6 +31,6 @@ app.get('/', (req, res) => {
 	res.send({msg : 'test'});
 })
 
-app.listen(port, () => {
+app.listen(process.env.PORT || 3000, () => {
 	console.log('listening');
 })
