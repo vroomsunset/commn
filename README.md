@@ -1,5 +1,5 @@
 
-# commn — a minimalist, lightweight text-based homegrown social media
+# commn a minimalist, lightweight text-based homegrown social media
 
 > simple, self-hostable text-first social network built with node, express, react (vite) and postgres.
 
@@ -111,38 +111,12 @@ open `http://localhost:5173` (vite default) and backend at `http://localhost:400
 
 ## security & privacy
 
-* store jwt secret securely (do not commit)
+* store jwt secret securely
 * validate and sanitize user input (prevent sql injection/xss)
 * rate-limit auth endpoints and posting endpoints
-* provide account deletion flow for user privacy
-
-## testing
-
-* include unit tests for api controllers and utils
-* integration tests for db queries and auth flows
-* run tests via `npm test` from project root or respective package folders
-
-## ops & monitoring
-
-* add basic logging (winston or pino) and structured logs
-* collect metrics (request latency, error rate)
-* alert on failed migrations, db connectivity errors
-
-## contributing
-
-* fork -> feature branch -> open pr
-* follow commit message convention: `feat|fix|chore(scope): description`
-* include tests for new features
+* provide account deletion flow for user privacy
 
 ## roadmap (ideas)
-
-* federation support (activitypub) — optional
-* richer moderation tools (reports, admin panel)
+
 * attachments (images) with moderation / size limits
-* realtime updates (websocket) for live replies/notifications
-
-## license
-
-choose a license (mit recommended for easy adoption). include `LICENSE` file.
-
----
+* realtime updates (websocket) for live replies/notifications
